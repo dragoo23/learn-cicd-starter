@@ -49,7 +49,7 @@ func TestProperApiKey(t *testing.T) {
 	h.Set("Authorization", "ApiKey test123")
 
 	apiKey, err := auth.GetAPIKey(h)
-	if err == nil {
+	if err != nil {
 		t.Fatalf("Function shouldn't return error, but it did, %v", err)
 	}
 	if apiKey != "test123" {
