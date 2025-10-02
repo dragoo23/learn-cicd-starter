@@ -98,5 +98,5 @@ func main() {
 }
 
 func unused() {
-//unused function to test staticchceck
+	// unused function to test staticchceck
 }
