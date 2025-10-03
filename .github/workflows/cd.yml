@@ -40,10 +40,11 @@ jobs:
       - name: Build and push Docker image
         run: gcloud builds submit --tag us-central1-docker.pkg.dev/notely-473909/notely-ar-repo/notely:latest .
 
+      - name: Create .env
+        run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
+
       - name: Goose migration
-        run: |
-          cd sql/schema
-          goose turso "$DATABASE_URL" up
+        run: ./scripts/migrateup.sh
 
       - name: Deploy to Cloud Run
         run: gcloud run deploy notely --image us-central1-docker.pkg.dev/notely-473909/notely-ar-repo/notely:latest --region us-central1 --allow-unauthenticated --project notely-473909 --max-instances=4
